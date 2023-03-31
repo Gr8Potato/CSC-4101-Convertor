@@ -5,6 +5,8 @@ package CSC4101Assignment2;
  *
  * @author Aidan Eiler
  */
-public class ConverterTest {
-    Converter.IEEE754(0);
+public class ConvertorTest {
+    public static void main (String args[]){
+        Convertor.IEEE754(12315.241414);
+    }
 }
