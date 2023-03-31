@@ -133,11 +133,7 @@ public class Convertor {
                     }
                 }
             }
-            if (number < 1 && number > -1) {
-                exp = dec_pos - one_pos;
-            } else {
-                exp = dec_pos - one_pos - 1;
-            }
+            exp = dec_pos - one_pos - 1;
             bin_string.deleteCharAt(dec_pos);
             if (!(number < 1 && number > -1)) {
                 bin_string.insert(one_pos + 1, '.');
@@ -153,7 +149,7 @@ public class Convertor {
             }
         } else {
             int i = 0;
-            while (number < 1){
+            while (number < 1) {
                 i++;
                 number *= 2;
             }
@@ -164,9 +160,12 @@ public class Convertor {
         } else {
             exp += 127;
         }
-        System.out.println(exp);
-        StringBuilder exponent = new StringBuilder(integer_to_binary(exp));
-        System.out.println(exponent);
+        StringBuilder exponent;
+        if (is_64) {
+            exponent = new StringBuilder(integer_to_binary(exp, true));
+        } else {
+            exponent = new StringBuilder(integer_to_binary(exp, false));
+        }
         return exponent;
     }
 
@@ -176,24 +175,28 @@ public class Convertor {
      * @param number - number wanting to be converted to binary
      * @return binary representation of number in the form of StringBuilder
      */
-    public static StringBuilder integer_to_binary(int number) {
+    public static StringBuilder integer_to_binary(int number, boolean is_64) {
         StringBuilder bin_string = new StringBuilder();
         {//integer to binary
             boolean done = false;
             while (!done) {
-                //double integral2 = integral;
-                System.out.println(number + " is NUMBER");
-                System.out.println(number%2 + " is NUMBER %2");
                 bin_string.append((int) number % 2);
-                System.out.println(number/2 + " is NUMBER /2");
                 number = (int) (number / 2);
-                System.out.println(number + " is NUMBER AT END");
                 if (number == 0) {
                     done = true;
                 }
 
             }
             bin_string = bin_string.reverse();
+            if (is_64) {
+                while (bin_string.length() < 12) {
+                    bin_string.insert(0, '0');
+                }
+            } else {
+                while (bin_string.length() < 8) {
+                    bin_string.insert(0, '0');
+                }
+            }
         }//end of integer to binary
         return bin_string;
     }
