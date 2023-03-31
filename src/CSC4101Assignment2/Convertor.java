@@ -14,24 +14,29 @@ public class Convertor {
      */
     public static void IEEE754(double number) {
 
-        StringBuilder bin_string = double_to_binary(number, false);
-        StringBuilder bin_string2 = double_to_binary(number, true);
-        {
-            StringBuilder exponent = normalize(bin_string, false, number);
-            StringBuilder exponent2 = normalize(bin_string2, true, number);
+        if (number == 0) {
+            System.out.println("Input " + number);
+            System.out.println("0 00000000 00000000000000000000000");
+            System.out.println("0 00000000000 0000000000000000000000000000000000000000000000000000");
+        } else {
+            StringBuilder bin_string = double_to_binary(number, false);
+            StringBuilder bin_string2 = double_to_binary(number, true);
+            {
+                StringBuilder exponent = normalize(bin_string, false, number);
+                StringBuilder exponent2 = normalize(bin_string2, true, number);
 
-            int sign_bit = number >= 0 ? 0 : 1;
-            bin_string.insert(0, exponent + " ");
-            bin_string2.insert(0, exponent2 + " ");
+                int sign_bit = number >= 0 ? 0 : 1;
+                bin_string.insert(0, exponent + " ");
+                bin_string2.insert(0, exponent2 + " ");
 
-            bin_string.insert(0, sign_bit + " ");
-            bin_string2.insert(0, sign_bit + " ");
+                bin_string.insert(0, sign_bit + " ");
+                bin_string2.insert(0, sign_bit + " ");
+            }
+
+            System.out.println("Input " + number);
+            System.out.println(bin_string);
+            System.out.println(bin_string2);
         }
-
-        System.out.println("Input " + number);
-        System.out.println(bin_string);
-        System.out.println(bin_string2);
-
     }
 
     /**
@@ -148,6 +153,9 @@ public class Convertor {
                 bin_string.delete(23, bin_string.length());
             }
         } else {
+            if (number < 0){
+                number *= -1;
+            }
             int i = 0;
             while (number < 1) {
                 i++;
@@ -189,7 +197,7 @@ public class Convertor {
             }
             bin_string = bin_string.reverse();
             if (is_64) {
-                while (bin_string.length() < 12) {
+                while (bin_string.length() < 11) {
                     bin_string.insert(0, '0');
                 }
             } else {
@@ -202,6 +210,6 @@ public class Convertor {
     }
 
     public static void main(String[] args) {
-        IEEE754(0.085);
+        IEEE754(-.01);
     }
 }
