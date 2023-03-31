@@ -89,7 +89,7 @@ public class Convertor {
                 if (number < 0) {
                     number *= -1;
                 }
-                for (int i = 1; number < 1; i++) {
+                while (number < 1) {
                     number *= 2;
                 }
                 if ((int) number == 1) {
@@ -120,7 +120,7 @@ public class Convertor {
      * @return StringBuilder representing binary exponent
      */
     private static StringBuilder normalize(StringBuilder bin_string, boolean is_64, double number) {
-        int exp = 0;
+        int exp;
         if (!(number < 1 && number > -1)) {
             int one_pos = -1, dec_pos = -1;
             {
@@ -140,11 +140,7 @@ public class Convertor {
             }
             exp = dec_pos - one_pos - 1;
             bin_string.deleteCharAt(dec_pos);
-            if (!(number < 1 && number > -1)) {
-                bin_string.insert(one_pos + 1, '.');
-            } else {
-                bin_string.insert(one_pos, '.');
-            }
+            bin_string.insert(one_pos + 1, '.');
             bin_string.delete(0, one_pos + 2);
 
             if (is_64) {
@@ -153,7 +149,7 @@ public class Convertor {
                 bin_string.delete(23, bin_string.length());
             }
         } else {
-            if (number < 0){
+            if (number < 0) {
                 number *= -1;
             }
             int i = 0;
@@ -188,8 +184,8 @@ public class Convertor {
         {//integer to binary
             boolean done = false;
             while (!done) {
-                bin_string.append((int) number % 2);
-                number = (int) (number / 2);
+                bin_string.append(number % 2);
+                number = number / 2;
                 if (number == 0) {
                     done = true;
                 }
@@ -210,6 +206,6 @@ public class Convertor {
     }
 
     public static void main(String[] args) {
-        IEEE754(-.01);
+        IEEE754(-0.000000235);
     }
 }
