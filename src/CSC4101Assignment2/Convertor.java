@@ -3,6 +3,8 @@ package CSC4101Assignment2;
 /**
  * This program converts any decimal number (within the specified double range) to
  * its binary equivalent in accordance with the IEEE754 standard, including its 32 and 64-bit variants.
+ * NOTE: This does have innacuracies in the last few bits due to roundoff error. This can be fixed by using
+ * a different data type (i.e.: BigDecimal).
  *
  * @author Aidan Eiler
  */
@@ -203,9 +205,5 @@ public class Convertor {
             }
         }//end of integer to binary
         return bin_string;
-    }
-
-    public static void main(String[] args) {
-        IEEE754(-0.000000235);
     }
 }
